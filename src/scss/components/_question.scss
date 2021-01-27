@@ -1,0 +1,53 @@
+.square {
+  &.disabled {
+    pointer-events: none;
+    & > * {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+.button.open {
+  background: transparent;
+  border: none;
+  color: $yellow;
+  font-size: 50px;
+  font-weight: bold;
+  padding: 30px;
+  height: 100%;
+  width: 100%;
+  @include scale-on-hover;
+}
+
+.question-modal {
+  @include full-screen-modal-styles;
+  @include flex-center;
+  flex-direction: column;
+  background: $blue;
+  color: $yellow;
+
+  .question {
+    font-size: 58px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    line-height: 1.5em;
+    max-width: 90%;
+    @include moved-up-animation;
+  }
+
+  .answer {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    transition-delay: 500ms;
+    font-size: 64px;
+    font-weight: bold;
+
+    &.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

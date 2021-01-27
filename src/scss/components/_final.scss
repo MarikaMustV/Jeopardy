@@ -1,0 +1,111 @@
+.final {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  @include flex-center;
+  flex-direction: column;
+  color: $yellow;
+
+  .final-stage {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    flex-direction: column;
+    padding: 50px;
+
+    &.visible {
+      display: flex;
+    }
+  }
+
+  .final {
+    transition: opacity 300ms ease, visibility 300ms ease;
+    &.in-dom {
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .intro {
+    font-size: 100px;
+  }
+
+  .question {
+    font-size: 80px;
+    @include moved-up-animation;
+  }
+
+  //ANSWER AREA
+
+  .answer-wrapper {
+    margin-top: 100px;
+  }
+
+  button.reveal-answer {
+    color: $yellow;
+    font-weight: 600;
+    @include main-button-styles;
+    @include scale-on-hover;
+  }
+
+  .answer-element {
+    opacity: 0;
+    visibility: hidden;
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .answer {
+    font-size: 50px;
+    transform: translateY(-50%);
+  }
+
+  .finish-game {
+    position: absolute;
+    right: 5%;
+    bottom: 15%;
+    margin-top: 15px;
+    font-size: 22px;
+    color: $yellow;
+    font-size: 22px;
+    border: 1px solid $yellow;
+    padding: 10px 20px;
+    padding-right: 50px;
+    border-radius: 2px;
+    font-weight: 600;
+    transform: translateX(200%);
+    transition: transform 1000ms ease-out, box-shadow 150ms ease;
+    transition-delay: transform 500ms, box-shadow 0ms;
+
+    &:after {
+      content: " \02FF";
+      position: absolute;
+      top: 50%;
+      right: 25px;
+      transform: rotate(180deg) scale(1.5);
+    }
+
+    &.visible {
+      transform: translateX(0);
+
+      &:hover {
+        box-shadow: 8px 16px 60px rgba(0, 0, 0, 0.1), 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  .winner {
+    font-size: 100px;
+    font-weight: bold;
+    @include flex-center;
+    flex-direction: column;
+  }
+}

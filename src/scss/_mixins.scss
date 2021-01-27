@@ -1,0 +1,37 @@
+@mixin scale-on-hover {
+  transition: transform 150ms ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin moved-up-animation {
+  transition: transform 500ms ease-out;
+
+  &.moved-up {
+    transform: translateY(-25vh) scale(0.6);
+  }
+}
+
+@mixin main-button-styles {
+  background: $blue;
+  color: $yellow;
+  border: 1px solid $yellow;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-size: 22px;
+}
+
+@mixin full-screen-modal-styles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
