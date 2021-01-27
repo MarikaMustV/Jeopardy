@@ -1,14 +1,31 @@
 import React from "react";
 
-export default function ScoreAssign({ isVisible, teamsData, pointValue, activatePointChange, closeQuestion }) {
+export default function ScoreAssign({
+  isVisible,
+  teamsData,
+  pointValue,
+  activatePointChange,
+  closeQuestion,
+  currentPointSum,
+  maxAllowedPointSum,
+  wasLastPointChangeAssign,
+}) {
   const [scoreActivatedTeam, setScoreActivatedTeam] = React.useState("");
   const [lastPointChangeTeam, setLastPointChangeTeam] = React.useState(null);
-  const [wasLastPointChangeAssign, setWasLastPointChangeAssign] = React.useState(null);
+  const [teamsThatLostPointsThisQuestion, setTeamsThatLostPointsThisQuestion] = React.useState([]);
 
   const handleScoreChangeButtonClick = (teamName, isAssign) => {
     activatePointChange(teamName, pointValue, isAssign);
     setLastPointChangeTeam(teamName);
-    setWasLastPointChangeAssign(isAssign);
+    if (!isAssign) setTeamsThatLostPointsThisQuestion([...teamsThatLostPointsThisQuestion, teamName]);
+  };
+
+  const getIsPointAddingAllowed = (teamName) => {
+    let adjustedMaxAllowedPointSum = maxAllowedPointSum;
+    if (teamsThatLostPointsThisQuestion.length && teamsThatLostPointsThisQuestion.includes(teamName)) {
+      adjustedMaxAllowedPointSum = maxAllowedPointSum + pointValue;
+    }
+    return currentPointSum < adjustedMaxAllowedPointSum;
   };
 
   return (
@@ -55,7 +72,9 @@ export default function ScoreAssign({ isVisible, teamsData, pointValue, activate
                   {team.name}
                 </button>
                 <button
-                  className={`team-button operator right ${scoreActivatedTeam === team.name ? "visible" : ""}`}
+                  className={`team-button operator right ${scoreActivatedTeam === team.name ? "visible" : ""} ${
+                    getIsPointAddingAllowed(team.name) ? "" : "disabled"
+                  }`}
                   onClick={() => {
                     handleScoreChangeButtonClick(team.name, true);
                   }}

@@ -16,14 +16,36 @@ export default function Question({
   const [isAnswerVisible, setIsAnswerVisible] = React.useState(false);
   const [isPlayed, setIsPlayed] = React.useState(false);
   const [customValue, setCustomValue] = React.useState(null);
+  const [maxAllowedPointSum, setMaxAllowedPointSum] = React.useState(0);
+  const [currentPointSum, setCurrentPointSum] = React.useState(0);
+  const [wasLastPointChangeAssign, setWasLastPointChangeAssign] = React.useState(null);
+  const [maxDailyDoubleValue, setMaxDailyDoubleValue] = React.useState(0);
 
-  const activatePointAssign = (team, pointValue, isAssign) => {
-    if (team === null && pointValue === null) {
-      //'Märgi mängituks'
+  React.useEffect(() => {
+    //To not increase points above the current question value
+    let pointSum = 0;
+    let highestScore = 0;
+    teamsData.map((team) => {
+      if (team.score > highestScore) highestScore = team.score;
+      return (pointSum = pointSum + Number(team.score));
+    });
+    setCurrentPointSum(pointSum);
+    if (!wasLastPointChangeAssign) {
+      setMaxAllowedPointSum(pointSum + (isDailyDouble ? Number(customValue) : questionData.pointValue));
+    }
+
+    //Set maximum daily double value - highest current score or current question value
+    setMaxDailyDoubleValue(highestScore > questionData.pointValue ? highestScore : questionData.pointValue);
+  }, [maxAllowedPointSum, teamsData, customValue, isDailyDouble, questionData, wasLastPointChangeAssign]);
+
+  const activatePointAssign = (teamName, pointValue, isAssign) => {
+    if (teamName === null && pointValue === null) {
+      //Mark as played
       setIsPlayed(true);
       increasePlayedSquaresCount();
     } else {
-      handlePointChange(team, pointValue, isAssign);
+      setWasLastPointChangeAssign(isAssign);
+      handlePointChange(teamName, pointValue, isAssign);
     }
   };
 
@@ -59,7 +81,12 @@ export default function Question({
                 {!isDailyDouble ? (
                   questionData.question || "Küsimust pole sisestatud"
                 ) : (
-                  <DailyDouble questionData={questionData} setCustomValue={setCustomValue} customValue={customValue} />
+                  <DailyDouble
+                    questionData={questionData}
+                    setCustomValue={setCustomValue}
+                    customValue={customValue}
+                    maxDailyDoubleValue={maxDailyDoubleValue}
+                  />
                 )}
               </div>
               <div className={`answer ${isAnswerVisible ? "visible" : ""}`}>
@@ -76,6 +103,9 @@ export default function Question({
                 pointValue={isDailyDouble ? Number(customValue) : questionData.pointValue}
                 activatePointChange={(team, pointValue, isAssign) => activatePointAssign(team, pointValue, isAssign)}
                 closeQuestion={() => setIsOpen(false)}
+                currentPointSum={currentPointSum}
+                maxAllowedPointSum={maxAllowedPointSum}
+                wasLastPointChangeAssign={wasLastPointChangeAssign}
               />
             </motion.div>
           </AnimatePresence>

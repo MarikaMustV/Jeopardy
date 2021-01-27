@@ -103,6 +103,12 @@
         opacity: 1;
         pointer-events: all;
       }
+
+      &.disabled {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 

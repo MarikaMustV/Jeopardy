@@ -1,18 +1,31 @@
 import React from "react";
 
-export default function DailyDouble({ customValue, setCustomValue, questionData }) {
+export default function DailyDouble({ customValue, setCustomValue, questionData, maxDailyDoubleValue }) {
   const [stage, setStage] = React.useState(1);
+  const [inError, setInError] = React.useState(false);
 
   return (
     <React.Fragment>
       <div className={`dd-intro ${stage === 1 ? "is-active" : ""}`}>
         HÕBEVILLAK
-        <input className="dd-input insert-value" type="number" onChange={(e) => setCustomValue(e.target.value)} />
+        <span className={`error-message ${inError ? "visible" : ""}`}>
+          Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
+        </span>
+        <input
+          className={`dd-input insert-value ${inError ? "in-error" : ""}`}
+          type="number"
+          onChange={(e) => setCustomValue(e.target.value)}
+          onFocus={() => setInError(false)}
+        />
         <button
           className="dd-button save-value"
           onClick={() => {
-            setCustomValue(customValue);
-            setStage(2);
+            if (customValue > maxDailyDoubleValue) {
+              setInError(true);
+            } else {
+              setCustomValue(customValue);
+              setStage(2);
+            }
           }}
         >
           Kinnita panus

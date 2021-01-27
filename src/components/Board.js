@@ -36,9 +36,9 @@ export default function Board() {
     });
   };
 
-  const handlePointChange = (team, pointValue, isAssign) => {
-    const prevScore = Number(window.localStorage.getItem(team));
-    window.localStorage.setItem(team, isAssign ? prevScore + (pointValue || 0) : prevScore - (pointValue || 0));
+  const handlePointChange = (teamName, pointValue, isAssign) => {
+    const prevScore = Number(window.localStorage.getItem(teamName));
+    window.localStorage.setItem(teamName, isAssign ? prevScore + (pointValue || 0) : prevScore - (pointValue || 0));
     setCurrentTeamsData(getUpdatedTeamsData());
   };
 
@@ -67,7 +67,9 @@ export default function Board() {
                     questionData={questionElement}
                     increasePlayedSquaresCount={() => setPlayedSquaresCount(playedSquaresCount + 1)}
                     isDailyDouble={getIsDailyDouble(questionIndex, columnIndex)}
-                    handlePointChange={(team, pointValue, isAssign) => handlePointChange(team, pointValue, isAssign)}
+                    handlePointChange={(teamName, pointValue, isAssign) =>
+                      handlePointChange(teamName, pointValue, isAssign)
+                    }
                   />
                 );
               })}
@@ -77,7 +79,7 @@ export default function Board() {
       ) : (
         <FinalQuestion
           teamsData={currentTeamsData}
-          handlePointDeduction={(team, value) => handlePointChange(team, value, false)}
+          handlePointDeduction={(teamName, value) => handlePointChange(teamName, value, false)}
           setFinalWinner={setFinalWinner}
           finalQuestion={finalQuestion}
         />
