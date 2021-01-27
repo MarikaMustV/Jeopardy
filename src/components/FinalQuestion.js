@@ -83,7 +83,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
             return (
               <FinalScoreAssign
                 teamName={team.name}
-                teamsCurrentScore={window.localStorage.getItem(team.name)}
+                teamCurrentScore={window.localStorage.getItem(team.name)}
                 handleFinalPointChange={handleFinalPointChange}
                 key={`${team.name}-final-score`}
               />

@@ -1,70 +1,72 @@
-.error-message {
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: normal;
-  opacity: 0;
-  visibility: hidden;
-  margin-top: 40px;
-  max-width: 200px;
-  color: white;
-  border: 1px solid white;
-  padding: 10px;
-  transform: translateX(110%);
-  transition: opacity 150ms ease, visibility 150ms ease;
+.dd {
+  .error-message {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: normal;
+    opacity: 0;
+    visibility: hidden;
+    margin-top: 40px;
+    max-width: 200px;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    transform: translateX(110%);
+    transition: opacity 150ms ease, visibility 150ms ease;
 
-  &.visible {
-    opacity: 1;
-    visibility: visible;
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    &:after {
+      content: " \02FF";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      transform: rotate(-42deg) scale(1.7) translate(-200%, -18%);
+    }
   }
-  &:after {
-    content: " \02FF";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: rotate(-42deg) scale(1.7) translate(-200%, -18%);
+
+  .dd-input.insert-value {
+    width: 200px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+
+    &.in-error {
+      border: 3px solid $yellow;
+      border-style: outset;
+      border-radius: 2px;
+    }
   }
-}
 
-.dd-input.insert-value {
-  width: 200px;
-  height: 50px;
-  font-size: 24px;
-  text-align: center;
-  position: relative;
-  margin-top: 20px;
-
-  &.in-error {
-    border: 3px solid $yellow;
-    border-style: outset;
-    border-radius: 2px;
+  .dd-button.save-value {
+    color: white;
+    margin-top: 20px;
+    border: 1px solid white;
+    padding: 10px 20px;
+    width: 200px;
+    font-size: 24px;
   }
-}
 
-.dd-button.save-value {
-  color: white;
-  margin-top: 20px;
-  border: 1px solid white;
-  padding: 10px 20px;
-  width: 200px;
-  font-size: 24px;
-}
+  .dd-intro {
+    font-size: 100px;
+    margin-top: 200px;
+    display: none;
 
-.dd-intro {
-  font-size: 100px;
-  margin-top: 200px;
-  display: none;
-
-  &.is-active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    &.is-active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
-}
 
-.dd-question {
-  display: none;
+  .dd-question {
+    display: none;
 
-  &.is-active {
-    display: block;
+    &.is-active {
+      display: block;
+    }
   }
 }

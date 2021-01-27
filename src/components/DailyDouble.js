@@ -5,7 +5,7 @@ export default function DailyDouble({ customValue, setCustomValue, questionData,
   const [inError, setInError] = React.useState(false);
 
   return (
-    <React.Fragment>
+    <div className="dd">
       <div className={`dd-intro ${stage === 1 ? "is-active" : ""}`}>
         HÕBEVILLAK
         <span className={`error-message ${inError ? "visible" : ""}`}>
@@ -35,6 +35,6 @@ export default function DailyDouble({ customValue, setCustomValue, questionData,
       <div className={`dd-question ${stage === 2 ? "is-active" : ""}`}>
         {questionData.question || "Küsimust pole sisestatud"}
       </div>
-    </React.Fragment>
+    </div>
   );
 }

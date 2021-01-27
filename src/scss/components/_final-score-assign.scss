@@ -7,6 +7,7 @@
     margin-top: 30vh;
     width: 80%;
     min-height: 220px;
+    z-index: 26;
   }
 
   .final-scoring-individual-element {
@@ -15,9 +16,31 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    position: relative;
 
     &:last-child {
       margin-right: 0;
+    }
+
+    .error-message {
+      font-size: 14px;
+      line-height: 1em;
+      position: absolute;
+      font-weight: normal;
+      visibility: hidden;
+      opacity: 0;
+      width: calc(100% - 20px);
+      left: 0;
+      bottom: 0;
+      color: white;
+      border: 1px solid white;
+      padding: 10px;
+      transform: translateY(130%);
+
+      &.visible {
+        visibility: visible;
+        opacity: 1;
+      }
     }
   }
 
