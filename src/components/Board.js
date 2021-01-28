@@ -57,7 +57,7 @@ export default function Board() {
 
   const renderBurgerButton = (onClick) => {
     return (
-      <button onClick={onClick} className={clsx("btn--burger", isMenuOpen && "menu-open")}>
+      <button onClick={onClick} className={clsx("btn--burger scale-on-hover", isMenuOpen && "menu-open")}>
         <div className="burger-stripe stripe-1" />
         <div className="burger-stripe stripe-2" />
         <div className="burger-stripe stripe-3" />
@@ -69,7 +69,7 @@ export default function Board() {
     return questionData?.map((column, columnIndex) => {
       return (
         <div className="column" key={column.category}>
-          <div className="square category">{column?.category}</div>
+          <div className="square flex-center category">{column?.category}</div>
           {column.questions[round]?.map((questionElement, questionIndex) => {
             return (
               <Question

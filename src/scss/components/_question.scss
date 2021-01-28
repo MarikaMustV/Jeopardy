@@ -16,13 +16,10 @@
     padding: 30px;
     height: 100%;
     width: 100%;
-    @include scale-on-hover;
   }
 }
 
 .question-modal {
-  @include full-screen-modal-styles;
-  @include flex-center;
   flex-direction: column;
   background: $blue;
   color: $yellow;
@@ -34,7 +31,6 @@
     text-align: center;
     line-height: 1.5em;
     max-width: 90%;
-    @include moved-up-animation;
   }
 
   .answer {

@@ -40,7 +40,7 @@ export default function ScoreAssign({
             activatePointChange({ teamName: null, pointValue: null });
             closeQuestion();
           }}
-          className="btn--finish-question"
+          className="btn--finish-question btn--main scale-on-hover"
         >
           Märgi mängituks
         </button>
@@ -55,13 +55,16 @@ export default function ScoreAssign({
               </div>
               <div className="team-elements">
                 <button
-                  className={clsx("btn--team-action operator left", scoreActivatedTeam === team.name && "is-visible")}
+                  className={clsx(
+                    "btn--team-action btn--main operator left scale-on-hover",
+                    scoreActivatedTeam === team.name && "is-visible"
+                  )}
                   onClick={() => handleScoreChangeButtonClick(team.name, false)}
                 >
                   -
                 </button>
                 <button
-                  className={clsx("btn--team-action", scoreActivatedTeam === team.name && "highlighted")}
+                  className={clsx("btn--team-action btn--main", scoreActivatedTeam === team.name && "highlighted")}
                   onClick={() => {
                     if (scoreActivatedTeam !== team.name) {
                       setScoreActivatedTeam(team.name);
@@ -73,7 +76,7 @@ export default function ScoreAssign({
                 </button>
                 <button
                   className={clsx(
-                    "btn--team-action operator right",
+                    "btn--team-action btn--main operator right",
                     scoreActivatedTeam === team.name && "is-visible",
                     !getIsPointAddingAllowed(team.name) && "is-disabled"
                   )}

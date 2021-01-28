@@ -10,7 +10,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
   const scoreboardRef = useRef();
 
   useEffect(() => {
-    if (finalPointAssignCount === teamsData.length) {
+    if (finalPointAssignCount === teamsData.filter((team) => team.score > 0).length) {
       const finalResults = teamsData.map((team) => {
         return {
           name: team.name,
@@ -57,7 +57,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
   };
 
   return (
-    <div className="final">
+    <div className="final flex-center">
       <button
         className={clsx("btn--side left", stage === 1 && "is-disabled")}
         onClick={() => {
@@ -74,14 +74,14 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
 
       <div className={clsx("final-stage final-stage--intro", stage === 1 && "is-visible")}>KULDVILLAK</div>
       <div
-        className={clsx("final-stage final-stage--question", {
+        className={clsx("final-stage final-stage--question moved-up-animation", {
           "is-visible": stage !== 1 && stage !== 4,
           "moved-up": stage === 3,
         })}
       >
         {finalQuestion.question}
       </div>
-      <div className="final-stage final" ref={scoreboardRef}>
+      <div className="final-stage final flex-center" ref={scoreboardRef}>
         <div className="final-stage__scoring">
           {teamsData.map((team) => {
             if (team.score > 0) {
@@ -99,7 +99,10 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
         </div>
         <div className="answer-wrapper">
           <button
-            className={clsx("answer-element btn--reveal-answer", !isAnswerVisible && "is-visible")}
+            className={clsx(
+              "answer-element btn--reveal-answer btn--main scale-on-hover",
+              !isAnswerVisible && "is-visible"
+            )}
             onClick={() => setIsAnswerVisible(true)}
           >
             Näita vastust
@@ -115,7 +118,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
       </button>
 
       {stage === 4 && (
-        <div className="winner">
+        <div className="winner flex-center">
           <div>{finalWinner.name}</div>
           <div>{finalWinner.score}</div>
         </div>

@@ -28,10 +28,10 @@ export default function FinalScoreAssign({ teamName, teamCurrentScore, handleFin
           onFocus={() => setInError(false)}
         />
         <div className="btns-area">
-          <button className="btn--operator" onClick={() => handleSubmit(false)}>
+          <button className="btn--operator btn--main btn--main scale-on-hover" onClick={() => handleSubmit(false)}>
             -
           </button>
-          <button className="btn--operator" onClick={() => handleSubmit(true)}>
+          <button className="btn--operator btn--main scale-on-hover" onClick={() => handleSubmit(true)}>
             +
           </button>
         </div>

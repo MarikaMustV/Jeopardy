@@ -84,8 +84,6 @@
         min-width: 40px;
         margin-right: 10px;
         margin-top: 15px;
-        @include main-button-styles;
-        @include scale-on-hover;
       }
     }
     .score {

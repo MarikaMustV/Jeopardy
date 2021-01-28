@@ -2,7 +2,6 @@
   position: absolute;
   height: 100vh;
   width: 100vw;
-  @include flex-center;
   flex-direction: column;
   color: $yellow;
 
@@ -38,7 +37,6 @@
 
   .final-stage--question {
     font-size: 80px;
-    @include moved-up-animation;
   }
 
   //ANSWER AREA
@@ -58,8 +56,6 @@
     .btn--reveal-answer {
       color: $yellow;
       font-weight: 600;
-      @include main-button-styles;
-      @include scale-on-hover;
     }
 
     .answer {
@@ -108,7 +104,6 @@
   .winner {
     font-size: 100px;
     font-weight: bold;
-    @include flex-center;
     flex-direction: column;
   }
 }

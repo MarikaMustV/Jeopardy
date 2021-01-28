@@ -59,8 +59,8 @@ export default function Question({
   };
 
   return (
-    <div className={clsx("square", isPlayed && "is-disabled")}>
-      <button className="btn--open-question" onClick={() => setIsOpen(true)}>
+    <div className={clsx("square flex-center", isPlayed && "is-disabled")}>
+      <button className="btn--open-question scale-on-hover" onClick={() => setIsOpen(true)}>
         {questionData.pointValue}
       </button>
 
@@ -68,7 +68,7 @@ export default function Question({
         <Portal>
           <AnimatePresence>
             <motion.div
-              className="question-modal"
+              className="question-modal flex-center full-screen-modal"
               initial="initial"
               animate="enter"
               key={questionData.question}
@@ -78,7 +78,7 @@ export default function Question({
                 className={clsx("btn--side left", isAnswerVisible && "is-disabled")}
                 onClick={() => setIsOpen(false)}
               />
-              <div className={clsx("question", isAnswerVisible && "moved-up")}>
+              <div className={clsx("question moved-up-animation", isAnswerVisible && "moved-up")}>
                 {!isDailyDouble ? (
                   questionData.question || "Küsimust pole sisestatud"
                 ) : (
