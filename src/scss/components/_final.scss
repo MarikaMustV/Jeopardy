@@ -13,30 +13,30 @@
     flex-direction: column;
     padding: 50px;
 
-    &.visible {
+    &.is-visible {
       display: flex;
     }
   }
 
   .final {
     transition: opacity 300ms ease, visibility 300ms ease;
-    &.in-dom {
+    &.is-in-dom {
       display: flex;
       opacity: 0;
       visibility: hidden;
     }
 
-    &.visible {
+    &.is-visible {
       opacity: 1;
       visibility: visible;
     }
   }
 
-  .intro {
+  .final-stage--intro {
     font-size: 100px;
   }
 
-  .question {
+  .final-stage--question {
     font-size: 80px;
     @include moved-up-animation;
   }
@@ -45,30 +45,32 @@
 
   .answer-wrapper {
     margin-top: 100px;
-  }
 
-  button.reveal-answer {
-    color: $yellow;
-    font-weight: 600;
-    @include main-button-styles;
-    @include scale-on-hover;
-  }
+    .answer-element {
+      opacity: 0;
+      visibility: hidden;
+      &.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
 
-  .answer-element {
-    opacity: 0;
-    visibility: hidden;
-    &.visible {
-      opacity: 1;
-      visibility: visible;
+    .btn--reveal-answer {
+      color: $yellow;
+      font-weight: 600;
+      @include main-button-styles;
+      @include scale-on-hover;
+    }
+
+    .answer {
+      font-size: 50px;
+      transform: translateY(-50%);
     }
   }
 
-  .answer {
-    font-size: 50px;
-    transform: translateY(-50%);
-  }
+  //FINISH GAME
 
-  .finish-game {
+  .btn--finish-game {
     position: absolute;
     right: 5%;
     bottom: 15%;
@@ -94,7 +96,7 @@
       transform: rotate(180deg) scale(1.5);
     }
 
-    &.visible {
+    &.is-visible {
       transform: translateX(0);
 
       &:hover {

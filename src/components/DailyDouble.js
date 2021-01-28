@@ -16,23 +16,23 @@ export default function DailyDouble({ customValue, setCustomValue, questionData,
 
   return (
     <div className="dd">
-      <div className={clsx("dd-intro", stage === 1 && "is-active")}>
+      <div className={clsx("dd__intro", stage === 1 && "is-active")}>
         HÕBEVILLAK
-        <span className={clsx("error-message", inError && "visible")}>
+        <span className={clsx("dd__error-message", inError && "is-visible")}>
           Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
         </span>
         <input
-          className={clsx("dd-input insert-value", inError && "in-error")}
+          className={clsx("input--insert-value", inError && "is-in-error")}
           type="number"
           onChange={(e) => setCustomValue(e.target.value)}
           onFocus={() => setInError(false)}
         />
-        <button className="dd-button save-value" onClick={() => handleSaveValue()}>
+        <button className="btn--save-value" onClick={() => handleSaveValue()}>
           Kinnita panus
         </button>
       </div>
 
-      <div className={clsx("dd-question", stage === 2 && "is-active")}>
+      <div className={clsx("dd__question", stage === 2 && "is-active")}>
         {questionData.question || "Küsimust pole sisestatud"}
       </div>
     </div>

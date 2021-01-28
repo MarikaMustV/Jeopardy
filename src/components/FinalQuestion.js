@@ -25,14 +25,14 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
   useEffect(() => {
     if (stage === 3) {
       setTimeout(() => {
-        scoreboardRef.current.classList.add("in-dom");
+        scoreboardRef.current.classList.add("is-in-dom");
       }, 300);
       setTimeout(() => {
-        scoreboardRef.current.classList.add("visible");
+        scoreboardRef.current.classList.add("is-visible");
       }, 600);
     } else if (stage !== 3) {
-      scoreboardRef.current.classList.remove("in-dom");
-      scoreboardRef.current.classList.remove("visible");
+      scoreboardRef.current.classList.remove("is-in-dom");
+      scoreboardRef.current.classList.remove("is-visible");
     }
   }, [stage]);
 
@@ -59,25 +59,31 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
   return (
     <div className="final">
       <button
-        className={clsx("side-button left", stage === 1 && "disabled")}
+        className={clsx("btn--side left", stage === 1 && "is-disabled")}
         onClick={() => {
           if (stage > 1) setStage(stage - 1);
         }}
       />
 
       <button
-        className={clsx("side-button right", stage === 4 && "disabled")}
+        className={clsx("btn--side right", stage === 4 && "is-disabled")}
         onClick={() => {
           if (stage < 3) setStage(stage + 1);
         }}
       />
 
-      <div className={clsx("final-stage intro", stage === 1 && "visible")}>KULDVILLAK</div>
-      <div className={clsx("final-stage question", stage !== 1 && stage !== 4 && "visible", stage === 3 && "moved-up")}>
+      <div className={clsx("final-stage final-stage--intro", stage === 1 && "is-visible")}>KULDVILLAK</div>
+      <div
+        className={clsx(
+          "final-stage final-stage--question",
+          stage !== 1 && stage !== 4 && "is-visible",
+          stage === 3 && "moved-up"
+        )}
+      >
         {finalQuestion.question}
       </div>
       <div className="final-stage final" ref={scoreboardRef}>
-        <div className="scoring-wrapper">
+        <div className="final-stage__scoring">
           {teamsData.map((team) => {
             return (
               <FinalScoreAssign
@@ -91,16 +97,16 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
         </div>
         <div className="answer-wrapper">
           <button
-            className={clsx("answer-element reveal-answer", !isAnswerVisible && "visible")}
+            className={clsx("answer-element btn--reveal-answer", !isAnswerVisible && "is-visible")}
             onClick={() => setIsAnswerVisible(true)}
           >
             Näita vastust
           </button>
-          <div className={clsx("answer-element answer", isAnswerVisible && "visible")}>{finalQuestion.answer}</div>
+          <div className={clsx("answer-element answer", isAnswerVisible && "is-visible")}>{finalQuestion.answer}</div>
         </div>
       </div>
       <button
-        className={clsx("finish-game", finalWinner.name && isAnswerVisible && stage !== 4 && "visible")}
+        className={clsx("btn--finish-game", finalWinner.name && isAnswerVisible && stage !== 4 && "is-visible")}
         onClick={() => setStage(4)}
       >
         Kuuluta võitja
@@ -108,8 +114,8 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
 
       {stage === 4 && (
         <div className="winner">
-          <div className="name">{finalWinner.name}</div>
-          <div className="score">{finalWinner.score}</div>
+          <div>{finalWinner.name}</div>
+          <div>{finalWinner.score}</div>
         </div>
       )}
     </div>

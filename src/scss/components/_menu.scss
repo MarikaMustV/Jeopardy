@@ -1,5 +1,5 @@
 //BURGER WITH ANIMATION
-.menu-opener {
+.btn--burger {
   position: absolute;
   top: 0;
   right: 0;
@@ -55,12 +55,12 @@
   z-index: 30;
   opacity: 0;
 
-  &.visible {
+  &.is-visible {
     transform: translateX(0);
     opacity: 1;
   }
 
-  .menu-button {
+  .btn--menu-btn {
     color: white;
     font-size: 36px;
     width: 100%;

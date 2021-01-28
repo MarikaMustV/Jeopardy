@@ -8,8 +8,8 @@ export default function Menu({ isOpen, teamsData }) {
   };
 
   return (
-    <div className={clsx("menu", isOpen && "visible")}>
-      <div className="score">
+    <div className={clsx("menu", isOpen && "is-visible")}>
+      <div className="scoreboard">
         {teamsData.map((team) => {
           return (
             <div className="team" key={team.name}>
@@ -19,7 +19,7 @@ export default function Menu({ isOpen, teamsData }) {
           );
         })}
       </div>
-      <button onClick={() => startNewGame()} className="menu-button">
+      <button onClick={() => startNewGame()} className="btn--menu-btn">
         Alusta uut mängu
       </button>
     </div>

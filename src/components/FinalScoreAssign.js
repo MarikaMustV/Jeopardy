@@ -19,24 +19,24 @@ export default function FinalScoreAssign({ teamName, teamCurrentScore, handleFin
     <div className="final-scoring-individual-element">
       <div className="name">{teamName}</div>
       <div className={clsx("score", arePointsAssigned && "is-large")}>{teamCurrentScore}</div>
-      <div className={clsx("input-buttons", !arePointsAssigned && "is-visible")}>
+      <div className={clsx("input-btns", !arePointsAssigned && "is-visible")}>
         <input
-          className={clsx("points-input", inError && "in-error")}
+          className={clsx("input--points", inError && "is-in-error")}
           type="number"
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
           onFocus={() => setInError(false)}
         />
-        <div className="buttons-area">
-          <button className="points-button" onClick={() => handleSubmit(false)}>
+        <div className="btns-area">
+          <button className="btn--operator" onClick={() => handleSubmit(false)}>
             -
           </button>
-          <button className="points-button" onClick={() => handleSubmit(true)}>
+          <button className="btn--operator" onClick={() => handleSubmit(true)}>
             +
           </button>
         </div>
       </div>
-      <span className={clsx("error-message", inError && "visible")}>
+      <span className={clsx("error-message", inError && "is-visible")}>
         Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
       </span>
     </div>

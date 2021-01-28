@@ -8,7 +8,7 @@ import clsx from "clsx";
 export default function Board() {
   const [round, setRound] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [playedSquaresCount, setPlayedSquaresCount] = useState(58);
+  const [playedSquaresCount, setPlayedSquaresCount] = useState(59);
   const [currentTeamsData, setCurrentTeamsData] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function Board() {
 
   const renderBurgerButton = (onClick) => {
     return (
-      <button onClick={onClick} className={clsx("menu-opener", isMenuOpen && "menu-open")}>
+      <button onClick={onClick} className={clsx("btn--burger", isMenuOpen && "menu-open")}>
         <div className="burger-stripe stripe-1" />
         <div className="burger-stripe stripe-2" />
         <div className="burger-stripe stripe-3" />

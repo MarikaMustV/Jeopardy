@@ -32,7 +32,7 @@ export default function ScoreAssign({
   };
 
   return (
-    <div className={clsx("score-assign", !isVisible && "hidden")}>
+    <div className={clsx("score-assign", !isVisible && "is-hidden")}>
       <div className="title-wrapper">
         Anna punktid: {pointValue}
         <button
@@ -40,7 +40,7 @@ export default function ScoreAssign({
             activatePointChange({ teamName: null, pointValue: null });
             closeQuestion();
           }}
-          className="finish-question"
+          className="btn--finish-question"
         >
           Märgi mängituks
         </button>
@@ -55,13 +55,13 @@ export default function ScoreAssign({
               </div>
               <div className="team-elements">
                 <button
-                  className={clsx("team-button operator left", scoreActivatedTeam === team.name && "visible")}
+                  className={clsx("btn--team-action operator left", scoreActivatedTeam === team.name && "is-visible")}
                   onClick={() => handleScoreChangeButtonClick(team.name, false)}
                 >
                   -
                 </button>
                 <button
-                  className={clsx("team-button", scoreActivatedTeam === team.name && "highlighted")}
+                  className={clsx("btn--team-action", scoreActivatedTeam === team.name && "highlighted")}
                   onClick={() => {
                     if (scoreActivatedTeam !== team.name) {
                       setScoreActivatedTeam(team.name);
@@ -73,9 +73,9 @@ export default function ScoreAssign({
                 </button>
                 <button
                   className={clsx(
-                    "team-button operator right",
-                    scoreActivatedTeam === team.name && "visible",
-                    !getIsPointAddingAllowed(team.name) && "disabled"
+                    "btn--team-action operator right",
+                    scoreActivatedTeam === team.name && "is-visible",
+                    !getIsPointAddingAllowed(team.name) && "is-disabled"
                   )}
                   onClick={() => handleScoreChangeButtonClick(team.name, true)}
                 >

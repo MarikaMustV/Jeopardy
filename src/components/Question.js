@@ -59,8 +59,8 @@ export default function Question({
   };
 
   return (
-    <div className={clsx("square", isPlayed && "disabled")}>
-      <button className="button open" onClick={() => setIsOpen(true)}>
+    <div className={clsx("square", isPlayed && "is-disabled")}>
+      <button className="btn--open-question" onClick={() => setIsOpen(true)}>
         {questionData.pointValue}
       </button>
 
@@ -75,7 +75,7 @@ export default function Question({
               variants={portalTransitionVariants}
             >
               <button
-                className={clsx("side-button left", isAnswerVisible && "disabled")}
+                className={clsx("btn--side left", isAnswerVisible && "is-disabled")}
                 onClick={() => setIsOpen(false)}
               />
               <div className={clsx("question", isAnswerVisible && "moved-up")}>
@@ -90,11 +90,11 @@ export default function Question({
                   />
                 )}
               </div>
-              <div className={clsx("answer", isAnswerVisible && "visible")}>
+              <div className={clsx("answer", isAnswerVisible && "is-visible")}>
                 {questionData.answer || "Vastust pole sisestatud"}
               </div>
               <button
-                className={clsx("side-button right", isAnswerVisible && "disabled")}
+                className={clsx("btn--side right", isAnswerVisible && "is-disabled")}
                 onClick={() => (!isPlayed ? setIsAnswerVisible(true) : "")}
               />
 
