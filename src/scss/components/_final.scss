@@ -84,6 +84,7 @@
     transform: translateX(200%);
     transition: transform 1000ms ease-out, box-shadow 150ms ease;
     transition-delay: transform 500ms, box-shadow 0ms;
+    z-index: 27;
 
     &:after {
       content: " \02FF";

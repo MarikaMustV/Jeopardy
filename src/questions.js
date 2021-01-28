@@ -2,7 +2,7 @@ export const questionData = [
   {
     category: "Category 1",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",
@@ -61,7 +61,7 @@ export const questionData = [
   {
     category: "Category 2",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",
@@ -120,7 +120,7 @@ export const questionData = [
   {
     category: "Category 3",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",
@@ -179,7 +179,7 @@ export const questionData = [
   {
     category: "Category 4",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",
@@ -239,7 +239,7 @@ export const questionData = [
   {
     category: "Category 5",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",
@@ -298,7 +298,7 @@ export const questionData = [
   {
     category: "Category 6",
     questions: {
-      round_1: [
+      1: [
         {
           question: "Question",
           answer: "Answer",

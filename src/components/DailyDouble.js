@@ -1,38 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import clsx from "clsx";
 
 export default function DailyDouble({ customValue, setCustomValue, questionData, maxDailyDoubleValue }) {
-  const [stage, setStage] = React.useState(1);
-  const [inError, setInError] = React.useState(false);
+  const [stage, setStage] = useState(1);
+  const [inError, setInError] = useState(false);
+
+  const handleSaveValue = () => {
+    if (customValue > maxDailyDoubleValue) {
+      setInError(true);
+    } else {
+      setCustomValue(customValue);
+      setStage(2);
+    }
+  };
 
   return (
     <div className="dd">
-      <div className={`dd-intro ${stage === 1 ? "is-active" : ""}`}>
+      <div className={clsx("dd-intro", stage === 1 && "is-active")}>
         HÕBEVILLAK
-        <span className={`error-message ${inError ? "visible" : ""}`}>
+        <span className={clsx("error-message", inError && "visible")}>
           Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
         </span>
         <input
-          className={`dd-input insert-value ${inError ? "in-error" : ""}`}
+          className={clsx("dd-input insert-value", inError && "in-error")}
           type="number"
           onChange={(e) => setCustomValue(e.target.value)}
           onFocus={() => setInError(false)}
         />
-        <button
-          className="dd-button save-value"
-          onClick={() => {
-            if (customValue > maxDailyDoubleValue) {
-              setInError(true);
-            } else {
-              setCustomValue(customValue);
-              setStage(2);
-            }
-          }}
-        >
+        <button className="dd-button save-value" onClick={() => handleSaveValue()}>
           Kinnita panus
         </button>
       </div>
 
-      <div className={`dd-question ${stage === 2 ? "is-active" : ""}`}>
+      <div className={clsx("dd-question", stage === 2 && "is-active")}>
         {questionData.question || "Küsimust pole sisestatud"}
       </div>
     </div>

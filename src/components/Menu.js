@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 export default function Menu({ isOpen, teamsData }) {
   const startNewGame = () => {
@@ -7,7 +8,7 @@ export default function Menu({ isOpen, teamsData }) {
   };
 
   return (
-    <div className={`menu ${isOpen ? "visible" : ""}`}>
+    <div className={clsx("menu", isOpen && "visible")}>
       <div className="score">
         {teamsData.map((team) => {
           return (

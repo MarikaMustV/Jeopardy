@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Portal } from "react-portal";
 import { motion, AnimatePresence } from "framer-motion";
 import ScoreAssign from "./ScoreAssign";
 import DailyDouble from "./DailyDouble";
 import { portalTransitionVariants } from "../transitions";
+import clsx from "clsx";
 
 export default function Question({
   questionData,
@@ -12,51 +13,54 @@ export default function Question({
   isDailyDouble,
   handlePointChange,
 }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isAnswerVisible, setIsAnswerVisible] = React.useState(false);
-  const [isPlayed, setIsPlayed] = React.useState(false);
-  const [customValue, setCustomValue] = React.useState(null);
-  const [maxAllowedPointSum, setMaxAllowedPointSum] = React.useState(0);
-  const [currentPointSum, setCurrentPointSum] = React.useState(0);
-  const [wasLastPointChangeAssign, setWasLastPointChangeAssign] = React.useState(null);
-  const [maxDailyDoubleValue, setMaxDailyDoubleValue] = React.useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+  const [isPlayed, setIsPlayed] = useState(false);
+  const [customValue, setCustomValue] = useState(null);
+  const [maxAllowedPointSum, setMaxAllowedPointSum] = useState(0);
+  const [currentPointSum, setCurrentPointSum] = useState(0);
+  const [wasLastPointChangeAssign, setWasLastPointChangeAssign] = useState(null);
+  const [maxDailyDoubleValue, setMaxDailyDoubleValue] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     //To not increase points above the current question value
-    let pointSum = 0;
-    let highestScore = 0;
-    teamsData.map((team) => {
-      if (team.score > highestScore) highestScore = team.score;
-      return (pointSum = pointSum + Number(team.score));
-    });
+    const { pointSum, highestScore } = teamsData.reduce(
+      (acc, team) => {
+        if (team.score > acc.highestScore) {
+          acc.highestScore = team.score;
+        }
+
+        acc.pointSum = acc.pointSum + team.score;
+
+        return acc;
+      },
+      { pointSum: 0, highestScore: 0 }
+    );
+
     setCurrentPointSum(pointSum);
+
     if (!wasLastPointChangeAssign) {
-      setMaxAllowedPointSum(pointSum + (isDailyDouble ? Number(customValue) : questionData.pointValue));
+      setMaxAllowedPointSum(pointSum + (isDailyDouble ? +customValue : questionData.pointValue));
     }
 
     //Set maximum daily double value - highest current score or current question value
     setMaxDailyDoubleValue(highestScore > questionData.pointValue ? highestScore : questionData.pointValue);
   }, [maxAllowedPointSum, teamsData, customValue, isDailyDouble, questionData, wasLastPointChangeAssign]);
 
-  const activatePointAssign = (teamName, pointValue, isAssign) => {
+  const activatePointAssign = ({ teamName, pointValue, isAssign }) => {
     if (teamName === null && pointValue === null) {
       //Mark as played
       setIsPlayed(true);
       increasePlayedSquaresCount();
     } else {
       setWasLastPointChangeAssign(isAssign);
-      handlePointChange(teamName, pointValue, isAssign);
+      handlePointChange({ teamName, pointValue, isAssign });
     }
   };
 
   return (
-    <div className={`square ${isPlayed ? "disabled" : ""}`}>
-      <button
-        className="button open"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
+    <div className={clsx("square", isPlayed && "disabled")}>
+      <button className="button open" onClick={() => setIsOpen(true)}>
         {questionData.pointValue}
       </button>
 
@@ -67,17 +71,14 @@ export default function Question({
               className="question-modal"
               initial="initial"
               animate="enter"
-              exit="exit"
               key={questionData.question}
               variants={portalTransitionVariants}
             >
               <button
-                className={`side-button left ${isAnswerVisible ? "disabled" : ""}`}
-                onClick={() => {
-                  setIsOpen(false);
-                }}
+                className={clsx("side-button left", isAnswerVisible && "disabled")}
+                onClick={() => setIsOpen(false)}
               />
-              <div className={`question ${isAnswerVisible ? "moved-up" : ""}`}>
+              <div className={clsx("question", isAnswerVisible && "moved-up")}>
                 {!isDailyDouble ? (
                   questionData.question || "Küsimust pole sisestatud"
                 ) : (
@@ -89,19 +90,19 @@ export default function Question({
                   />
                 )}
               </div>
-              <div className={`answer ${isAnswerVisible ? "visible" : ""}`}>
+              <div className={clsx("answer", isAnswerVisible && "visible")}>
                 {questionData.answer || "Vastust pole sisestatud"}
               </div>
               <button
-                className={`side-button right ${isAnswerVisible ? "disabled" : ""}`}
+                className={clsx("side-button right", isAnswerVisible && "disabled")}
                 onClick={() => (!isPlayed ? setIsAnswerVisible(true) : "")}
               />
 
               <ScoreAssign
                 isVisible={isAnswerVisible}
                 teamsData={teamsData}
-                pointValue={isDailyDouble ? Number(customValue) : questionData.pointValue}
-                activatePointChange={(team, pointValue, isAssign) => activatePointAssign(team, pointValue, isAssign)}
+                pointValue={isDailyDouble ? +customValue : questionData.pointValue}
+                activatePointChange={(props) => activatePointAssign(props)}
                 closeQuestion={() => setIsOpen(false)}
                 currentPointSum={currentPointSum}
                 maxAllowedPointSum={maxAllowedPointSum}

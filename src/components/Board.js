@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { questionData, finalQuestion, teamsData } from "../questions";
 import Question from "./Question";
 import Menu from "./Menu";
 import FinalQuestion from "./FinalQuestion";
+import clsx from "clsx";
 
 export default function Board() {
-  const [round, setRound] = React.useState("round_1");
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [playedSquaresCount, setPlayedSquaresCount] = React.useState(0);
-  const [finalWinner, setFinalWinner] = React.useState("");
-  const [currentTeamsData, setCurrentTeamsData] = React.useState([]);
+  const [round, setRound] = useState(1);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [playedSquaresCount, setPlayedSquaresCount] = useState(58);
+  const [currentTeamsData, setCurrentTeamsData] = useState([]);
 
-  React.useEffect(() => {
-    teamsData.map((team) => {
+  useEffect(() => {
+    teamsData.forEach((team) => {
       return localStorage.setItem(team.name, 0);
     });
+
     setCurrentTeamsData(teamsData);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (playedSquaresCount === 30) {
       window.setTimeout(() => {
-        setRound("round_2");
+        setRound(2);
       }, 3000);
     } else if (playedSquaresCount === 60) {
       window.setTimeout(() => {
@@ -36,60 +37,71 @@ export default function Board() {
     });
   };
 
-  const handlePointChange = (teamName, pointValue, isAssign) => {
-    const prevScore = Number(window.localStorage.getItem(teamName));
+  const handlePointChange = ({ teamName, pointValue, isAssign }) => {
+    const prevScore = +window.localStorage.getItem(teamName);
     window.localStorage.setItem(teamName, isAssign ? prevScore + (pointValue || 0) : prevScore - (pointValue || 0));
+
     setCurrentTeamsData(getUpdatedTeamsData());
   };
 
   const getIsDailyDouble = (questionIndex, columnIndex) => {
-    if (round === "round_1" && questionIndex === 3 && columnIndex === 3) return true;
-    else if (
-      round === "round_2" &&
-      ((questionIndex === 3 && columnIndex === 1) || (questionIndex === 4 && columnIndex === 4))
-    )
+    if (
+      (round === 1 && questionIndex === 3 && columnIndex === 3) ||
+      (round === 2 && ((questionIndex === 3 && columnIndex === 1) || (questionIndex === 4 && columnIndex === 4)))
+    ) {
       return true;
-    else return false;
+    }
+
+    return false;
   };
 
-  return (
-    <div className="board">
-      {round !== "final" ? (
-        questionData?.map((column, columnIndex) => {
-          return (
-            <div className="column" key={column.category}>
-              <div className="square category">{column?.category}</div>
-              {column.questions[round]?.map((questionElement, questionIndex) => {
-                return (
-                  <Question
-                    key={`${questionIndex}${questionElement.value}`}
-                    teamsData={currentTeamsData}
-                    questionData={questionElement}
-                    increasePlayedSquaresCount={() => setPlayedSquaresCount(playedSquaresCount + 1)}
-                    isDailyDouble={getIsDailyDouble(questionIndex, columnIndex)}
-                    handlePointChange={(teamName, pointValue, isAssign) =>
-                      handlePointChange(teamName, pointValue, isAssign)
-                    }
-                  />
-                );
-              })}
-            </div>
-          );
-        })
-      ) : (
-        <FinalQuestion
-          teamsData={currentTeamsData}
-          handlePointDeduction={(teamName, value) => handlePointChange(teamName, value, false)}
-          setFinalWinner={setFinalWinner}
-          finalQuestion={finalQuestion}
-        />
-      )}
-      <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`menu-opener ${isMenuOpen ? "menu-open" : ""}`}>
+  const renderBurgerButton = (onClick) => {
+    return (
+      <button onClick={onClick} className={clsx("menu-opener", isMenuOpen && "menu-open")}>
         <div className="burger-stripe stripe-1" />
         <div className="burger-stripe stripe-2" />
         <div className="burger-stripe stripe-3" />
       </button>
-      <Menu isOpen={isMenuOpen} finalWinner={finalWinner} teamsData={currentTeamsData} />
+    );
+  };
+
+  const renderBoard = () => {
+    return questionData?.map((column, columnIndex) => {
+      return (
+        <div className="column" key={column.category}>
+          <div className="square category">{column?.category}</div>
+          {column.questions[round]?.map((questionElement, questionIndex) => {
+            return (
+              <Question
+                key={`${questionIndex}${questionElement.value}`}
+                teamsData={currentTeamsData}
+                questionData={questionElement}
+                increasePlayedSquaresCount={() => setPlayedSquaresCount(playedSquaresCount + 1)}
+                isDailyDouble={getIsDailyDouble(questionIndex, columnIndex)}
+                handlePointChange={(props) => handlePointChange(props)}
+              />
+            );
+          })}
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div className="board-root">
+      {round !== "final" ? (
+        renderBoard()
+      ) : (
+        <FinalQuestion
+          teamsData={currentTeamsData}
+          finalQuestion={finalQuestion}
+          handlePointDeduction={(teamName, value) =>
+            handlePointChange({ teamName, pointValue: value, isAssign: false })
+          }
+        />
+      )}
+      {renderBurgerButton(() => setIsMenuOpen(!isMenuOpen))}
+      <Menu isOpen={isMenuOpen} teamsData={currentTeamsData} />
     </div>
   );
 }
