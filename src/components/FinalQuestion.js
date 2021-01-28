@@ -74,25 +74,27 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
 
       <div className={clsx("final-stage final-stage--intro", stage === 1 && "is-visible")}>KULDVILLAK</div>
       <div
-        className={clsx(
-          "final-stage final-stage--question",
-          stage !== 1 && stage !== 4 && "is-visible",
-          stage === 3 && "moved-up"
-        )}
+        className={clsx("final-stage final-stage--question", {
+          "is-visible": stage !== 1 && stage !== 4,
+          "moved-up": stage === 3,
+        })}
       >
         {finalQuestion.question}
       </div>
       <div className="final-stage final" ref={scoreboardRef}>
         <div className="final-stage__scoring">
           {teamsData.map((team) => {
-            return (
-              <FinalScoreAssign
-                teamName={team.name}
-                teamCurrentScore={window.localStorage.getItem(team.name)}
-                handleFinalPointChange={handleFinalPointChange}
-                key={`${team.name}-final-score`}
-              />
-            );
+            if (team.score > 0) {
+              return (
+                <FinalScoreAssign
+                  teamName={team.name}
+                  teamCurrentScore={window.localStorage.getItem(team.name)}
+                  handleFinalPointChange={handleFinalPointChange}
+                  key={`${team.name}-final-score`}
+                />
+              );
+            }
+            return null;
           })}
         </div>
         <div className="answer-wrapper">

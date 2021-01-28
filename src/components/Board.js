@@ -8,7 +8,7 @@ import clsx from "clsx";
 export default function Board() {
   const [round, setRound] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [playedSquaresCount, setPlayedSquaresCount] = useState(59);
+  const [playedSquaresCount, setPlayedSquaresCount] = useState(0);
   const [currentTeamsData, setCurrentTeamsData] = useState([]);
 
   useEffect(() => {
