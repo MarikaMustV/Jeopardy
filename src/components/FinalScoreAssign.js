@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export default function FinalScoreAssign({ teamName, teamCurrentScore, handleFinalPointChange }) {
+  const { t } = useTranslation();
+
   const [inputValue, setInputValue] = useState("");
   const [inError, setInError] = useState(false);
   const [arePointsAssigned, setArePointsAssigned] = useState(false);
@@ -37,7 +40,7 @@ export default function FinalScoreAssign({ teamName, teamCurrentScore, handleFin
         </div>
       </div>
       <span className={clsx("error-message", inError && "is-visible")}>
-        Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
+        {t("errorMessage", "Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.")}
       </span>
     </div>
   );

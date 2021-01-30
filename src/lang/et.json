@@ -1,0 +1,15 @@
+{
+  "jeopardy": "KULDVILLAK",
+  "showAnswer": "Näita vastust",
+  "announceWinner": "Kuuluta võitja",
+  "markAsPlayed": "Märgi mängituks",
+  "assignPoints": "Anna punktid: ",
+  "errorMessage": "Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.",
+  "noQuestionInserted": "Küsimust pole sisestatud",
+  "noAnswerInserted": "Vastust pole sisestatud",
+
+  "menu.startNewGame": "Alusta uut mängu",
+
+  "dailyDouble.title": "HÕBEVILLAK",
+  "dailyDouble.confirmInput": "Kinnita panus"
+}

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export default function DailyDouble({ customValue, setCustomValue, questionData, maxDailyDoubleValue }) {
+  const { t } = useTranslation();
+
   const [stage, setStage] = useState(1);
   const [inError, setInError] = useState(false);
 
@@ -17,9 +20,12 @@ export default function DailyDouble({ customValue, setCustomValue, questionData,
   return (
     <div className="dd">
       <div className={clsx("dd__intro", stage === 1 && "is-active")}>
-        HÕBEVILLAK
+        {t("dailyDouble.title", "HÕBEVILLAK")}
         <span className={clsx("dd__error-message", inError && "is-visible")}>
-          Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus.
+          {t(
+            "errorMessage",
+            "Sisestatud punktisumma on suurem kui maksimaalne võimalik panus. Palun sisesta uus panus."
+          )}
         </span>
         <input
           className={clsx("input--insert-value", inError && "is-in-error")}
@@ -28,12 +34,12 @@ export default function DailyDouble({ customValue, setCustomValue, questionData,
           onFocus={() => setInError(false)}
         />
         <button className="btn--save-value" onClick={() => handleSaveValue()}>
-          Kinnita panus
+          {t("dailyDouble.confirmInput", "Kinnita panus")}
         </button>
       </div>
 
       <div className={clsx("dd__question", stage === 2 && "is-active")}>
-        {questionData.question || "Küsimust pole sisestatud"}
+        {questionData.question || t("noQuestionInserted", "Küsimust pole sisestatud")}
       </div>
     </div>
   );

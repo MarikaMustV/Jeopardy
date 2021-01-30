@@ -5,6 +5,7 @@ import ScoreAssign from "./ScoreAssign";
 import DailyDouble from "./DailyDouble";
 import { portalTransitionVariants } from "../transitions";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export default function Question({
   questionData,
@@ -13,6 +14,8 @@ export default function Question({
   isDailyDouble,
   handlePointChange,
 }) {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [isPlayed, setIsPlayed] = useState(false);
@@ -80,7 +83,7 @@ export default function Question({
               />
               <div className={clsx("question moved-up-animation", isAnswerVisible && "moved-up")}>
                 {!isDailyDouble ? (
-                  questionData.question || "Küsimust pole sisestatud"
+                  questionData.question || t("noQuestionInserted", "Küsimust pole sisestatud")
                 ) : (
                   <DailyDouble
                     questionData={questionData}
@@ -91,7 +94,7 @@ export default function Question({
                 )}
               </div>
               <div className={clsx("answer", isAnswerVisible && "is-visible")}>
-                {questionData.answer || "Vastust pole sisestatud"}
+                {questionData.answer || t("noAnswerInserted", "Vastust pole sisestatud")}
               </div>
               <button
                 className={clsx("btn--side right", isAnswerVisible && "is-disabled")}

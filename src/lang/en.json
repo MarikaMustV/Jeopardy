@@ -1,0 +1,15 @@
+{
+  "jeopardy": "JEOPARDY",
+  "showAnswer": "Show the answer",
+  "announceWinner": "Announce the winner",
+  "markAsPlayed": "Mark as played",
+  "assignPoints": "Assign points: ",
+  "errorMessage": "Inserted pointvalue is higher than the maximum allowed value. Please insert a new pointvalue",
+  "noQuestionInserted": "No question inserted",
+  "noAnswerInserted": "No answer inserted",
+
+  "menu.startNewGame": "Start a new game",
+
+  "dailyDouble.title": "DAILY DOUBLE",
+  "dailyDouble.confirmInput": "Confirm pointvalue"
+}

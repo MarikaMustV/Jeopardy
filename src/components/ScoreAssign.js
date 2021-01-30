@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export default function ScoreAssign({
   isVisible,
@@ -11,6 +12,8 @@ export default function ScoreAssign({
   maxAllowedPointSum,
   wasLastPointChangeAssign,
 }) {
+  const { t } = useTranslation();
+
   const [scoreActivatedTeam, setScoreActivatedTeam] = useState("");
   const [lastPointChangeTeam, setLastPointChangeTeam] = useState(null);
   const [teamsThatLostPointsThisQuestion, setTeamsThatLostPointsThisQuestion] = useState([]);
@@ -34,7 +37,8 @@ export default function ScoreAssign({
   return (
     <div className={clsx("score-assign", !isVisible && "is-hidden")}>
       <div className="title-wrapper">
-        Anna punktid: {pointValue}
+        {t("assignPoints", "Anna punktid: ")}
+        {pointValue}
         <button
           onClick={() => {
             activatePointChange({ teamName: null, pointValue: null });
@@ -42,7 +46,7 @@ export default function ScoreAssign({
           }}
           className="btn--finish-question btn--main scale-on-hover"
         >
-          Märgi mängituks
+          {t("markAsPlayed", "Märgi mängituks")}
         </button>
       </div>
       <div className="teams">

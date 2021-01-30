@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import FinalScoreAssign from "./FinalScoreAssign";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export default function FinalQuestion({ finalQuestion, teamsData }) {
+  const { t } = useTranslation();
+
   const [stage, setStage] = useState(1);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [finalWinner, setFinalWinner] = useState({});
@@ -72,7 +75,9 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
         }}
       />
 
-      <div className={clsx("final-stage final-stage--intro", stage === 1 && "is-visible")}>KULDVILLAK</div>
+      <div className={clsx("final-stage final-stage--intro", stage === 1 && "is-visible")}>
+        {t("jeopardy", "KULDVILLAK")}
+      </div>
       <div
         className={clsx("final-stage final-stage--question moved-up-animation", {
           "is-visible": stage !== 1 && stage !== 4,
@@ -105,7 +110,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
             )}
             onClick={() => setIsAnswerVisible(true)}
           >
-            Näita vastust
+            {t("showAnswer", "Näita vastust")}
           </button>
           <div className={clsx("answer-element answer", isAnswerVisible && "is-visible")}>{finalQuestion.answer}</div>
         </div>
@@ -114,7 +119,7 @@ export default function FinalQuestion({ finalQuestion, teamsData }) {
         className={clsx("btn--finish-game", finalWinner.name && isAnswerVisible && stage !== 4 && "is-visible")}
         onClick={() => setStage(4)}
       >
-        Kuuluta võitja
+        {t("announceWinner", "Kuuluta võitja")}
       </button>
 
       {stage === 4 && (
