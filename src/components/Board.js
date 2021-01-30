@@ -29,6 +29,8 @@ export default function Board() {
         setRound("final");
       }, 1000);
     }
+
+    console.log("SCORES", window.localStorage);
   }, [playedSquaresCount]);
 
   const getUpdatedTeamsData = () => {

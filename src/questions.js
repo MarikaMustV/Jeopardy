@@ -362,9 +362,11 @@ export const finalQuestion = {
 };
 
 export const teamsData = [
+  //UP TO 6 TEAMS
   { name: "Team 1", score: 0 },
   { name: "Team 2", score: 0 },
   { name: "Team 3", score: 0 },
   { name: "Team 4", score: 0 },
   { name: "Team 5", score: 0 },
+  { name: "Team 6", score: 0 },
 ];
