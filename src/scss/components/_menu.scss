@@ -95,7 +95,7 @@
       margin-right: 10px;
       font-size: 26px;
       transform: scale(0.95);
-      transition: transform 150ms ease;
+      transition: transform 150ms ease, font-weight 150ms ease;
 
       &:last-child {
         margin-right: 0;
@@ -103,6 +103,7 @@
 
       &.is-active {
         transform: scale(1.05);
+        font-weight: bold;
       }
     }
   }
